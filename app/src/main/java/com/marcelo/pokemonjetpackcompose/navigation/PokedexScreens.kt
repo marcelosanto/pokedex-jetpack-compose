@@ -1,6 +1,6 @@
 package com.marcelo.pokemonjetpackcompose.navigation
 
-enum class PokemonScreens {
+enum class PokedexScreens {
     SplashScreen,
     MainScreen,
     AboutScreen,
