@@ -9,9 +9,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val repository: PokedexRepository) : ViewModel() {
-    suspend fun getAllPokemons(): DataOrException<PokemonList, Boolean, Exception> {
-        return repository.getAllPokemonList()
+class PokemonListViewModel @Inject constructor(private val repository: PokedexRepository) :
+    ViewModel() {
+    suspend fun getAllPokemonList(
+        limit: Int,
+        offset: Int
+    ): DataOrException<PokemonList, Boolean, Exception> {
+        return repository.getAllPokemonList(limit, offset)
     }
 
     suspend fun getPokemon(name: String): DataOrException<Pokemon, Boolean, Exception> {

@@ -1,5 +1,5 @@
 package com.marcelo.pokemonjetpackcompose.model
 
 data class GenerationV(
-    val black-white: BlackWhite
+    val black_white: BlackWhite
 )

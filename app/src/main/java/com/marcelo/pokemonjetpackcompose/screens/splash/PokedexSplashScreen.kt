@@ -46,7 +46,7 @@ fun PokedexSplashScreen(navController: NavController) {
             ))
 
         delay(2000L)
-        navController.navigate(PokedexScreens.MainScreen.name)
+        navController.navigate(PokedexScreens.PokemonListScreen.name)
     })
 
     Surface(
@@ -64,7 +64,8 @@ fun PokedexSplashScreen(navController: NavController) {
             verticalArrangement = Arrangement.Center
         ) {
             Image(
-                painter = painterResource(id = R.drawable.pokedex), contentDescription = "Pokedex icon",
+                painter = painterResource(id = R.drawable.pokedex),
+                contentDescription = "Pokedex icon",
                 contentScale = ContentScale.Fit,
                 modifier = Modifier.size(95.dp)
             )

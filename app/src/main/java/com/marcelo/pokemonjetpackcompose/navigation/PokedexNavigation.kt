@@ -10,8 +10,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.marcelo.pokemonjetpackcompose.screens.detail.PokemonDetailScreen
-import com.marcelo.pokemonjetpackcompose.screens.main.MainScreen
-import com.marcelo.pokemonjetpackcompose.screens.main.MainViewModel
+import com.marcelo.pokemonjetpackcompose.screens.main.PokemonListScreen
+import com.marcelo.pokemonjetpackcompose.screens.main.PokemonListViewModel
 import com.marcelo.pokemonjetpackcompose.screens.splash.PokedexSplashScreen
 
 @Composable
@@ -26,9 +26,9 @@ fun PokedexNavigation() {
         }
 
 
-        composable(PokedexScreens.MainScreen.name) {
-            val mainViewModel = hiltViewModel<MainViewModel>()
-            MainScreen(navController = navController, mainViewModel)
+        composable(PokedexScreens.PokemonListScreen.name) {
+            val pokemonListViewModel = hiltViewModel<PokemonListViewModel>()
+            PokemonListScreen(navController = navController, pokemonListViewModel)
         }
 
         composable("${PokedexScreens.PokemonDetailScreen.name}/{dominantColor}/{pokemonName}",
