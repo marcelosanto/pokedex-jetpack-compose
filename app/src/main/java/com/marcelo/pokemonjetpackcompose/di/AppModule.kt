@@ -1,6 +1,8 @@
 package com.marcelo.pokemonjetpackcompose.di
 
 import com.marcelo.pokemonjetpackcompose.network.PokeAPI
+import com.marcelo.pokemonjetpackcompose.repository.PokedexRepository
+import com.marcelo.pokemonjetpackcompose.utils.Const.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,11 +14,18 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {
+    
+    @Singleton
+    @Provides
+    fun providePokemonRepository(
+        api: PokeAPI
+    ) = PokedexRepository(api)
+
     @Provides
     @Singleton
     fun providePokedexApi(): PokeAPI {
         return Retrofit.Builder()
-            .baseUrl("https://pokeapi.co/api/v2/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(PokeAPI::class.java)
