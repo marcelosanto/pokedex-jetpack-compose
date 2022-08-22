@@ -11,7 +11,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(private val repository: PokedexRepository) : ViewModel() {
     suspend fun getAllPokemons(): DataOrException<PokemonList, Boolean, Exception> {
-        return repository.getAllPokemons()
+        return repository.getAllPokemonList()
     }
 
     suspend fun getPokemon(name: String): DataOrException<Pokemon, Boolean, Exception> {
