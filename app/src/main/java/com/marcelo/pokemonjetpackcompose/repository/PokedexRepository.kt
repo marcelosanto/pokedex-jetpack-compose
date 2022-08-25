@@ -24,7 +24,7 @@ class PokedexRepository @Inject constructor(private val api: PokeAPI) {
 
     suspend fun getPokemon(name: String): Resource<Pokemon> {
         val response = try {
-            api.getPokemon(name)
+            api.getPokemon(name.lowercase())
         } catch (e: Exception) {
             return Resource.Error(e.message)
         }

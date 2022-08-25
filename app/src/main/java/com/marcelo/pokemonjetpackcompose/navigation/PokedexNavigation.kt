@@ -48,7 +48,7 @@ fun PokedexNavigation() {
             PokemonDetailScreen(
                 navController = navController,
                 dominantColor = dominantColor,
-                pokemonName = pokemonName
+                pokemonName = pokemonName ?: ""
             )
         }
 
