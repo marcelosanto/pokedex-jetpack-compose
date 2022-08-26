@@ -15,25 +15,32 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import coil.compose.SubcomposeAsyncImage
+import com.marcelo.pokemonjetpackcompose.R
 import com.marcelo.pokemonjetpackcompose.model.Pokemon
 import com.marcelo.pokemonjetpackcompose.model.Type
 import com.marcelo.pokemonjetpackcompose.utils.Resource
+import com.marcelo.pokemonjetpackcompose.utils.parseTypeToColor
 import timber.log.Timber
 import java.util.*
+import kotlin.math.round
 
 @Composable
 fun PokemonDetailScreen(
@@ -196,9 +203,64 @@ fun PokemonTypeSection(types: List<Type>) {
                     .weight(1f)
                     .padding(horizontal = 8.dp)
                     .clip(CircleShape)
+                    .background(parseTypeToColor(type))
+                    .height(35.dp)
             ) {
-
+                Text(
+                    text = type.type.name.capitalize(Locale.ROOT),
+                    color = Color.White,
+                    fontSize = 18.sp
+                )
             }
         }
     }
 }
+
+@Composable
+fun PokemonDetailDataSection(
+    pokemonWeight: Int,
+    pokemonHeight: Int,
+    sectionHeight: Dp = 80.dp
+) {
+    val pokemonWeightInKg = remember {
+        round(pokemonWeight * 100f) / 1000F
+    }
+
+    val pokemonHeightInMeters = remember {
+        round(pokemonHeight * 100f) / 1000F
+    }
+
+    Row(modifier = Modifier.fillMaxWidth()) {
+        PokemonDetailDataItem(
+            dataValue = pokemonWeightInKg,
+            dataUnit = "kg",
+            dataIcon = painterResource(
+                id = R.drawable.ic_weight
+            )
+        )
+
+        PokemonDetailDataItem(
+            dataValue = pokemonHeightInMeters, dataUnit = "m", dataIcon = painterResource(
+                id = R.drawable.ic_height
+            )
+        )
+    }
+}
+
+@Composable
+fun PokemonDetailDataItem(
+    dataValue: Float,
+    dataUnit: String,
+    dataIcon: Painter,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Icon(painter = dataIcon, contentDescription = null, tint = MaterialTheme.colors.onSurface)
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(text = "$dataValue$dataUnit", color = MaterialTheme.colors.onSurface)
+    }
+}
+
